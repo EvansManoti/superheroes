@@ -105,6 +105,27 @@ def get_or_update_power(power_id):
                 jsonify({"errors": ["unavailable 'description' in request"]}), 401
             )
 
+
+@app.route("/hero_powers", methods=["POST"])
+def create_hero_power():
+    data = request.get_json()
+
+    if not all(key in data for key in ["strength", "power_id", "hero_id"]):
+        return make_response(
+            jsonify({"errors": ["Missing required fields in request"]}), 400
+        )
+
+    new_hero_power = HeroPower(
+        strength=data["strength"], power_id=data["power_id"], hero_id=data["hero_id"]
+    )
+
+    db.session.add(new_hero_power)
+    db.session.commit()
+
+    return jsonify(get_hero_by_id(data["hero_id"]))
+
+
+
     
 
 
