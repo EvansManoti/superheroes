@@ -23,13 +23,21 @@ db.init_app(app)
 def home():
     return ''
 
-@app.route('/add-dumy')
-def add_dummy():
-    hero=Hero(name='Leo',super_name='belligoal')
-    db.session.add(hero)
-    db.session.commit()
+# @app.route('/add-dumy')
+# def add_dummy():
+#     hero=Hero(name='Leo',super_name='belligoal')
+#     db.session.add(hero)
+#     db.session.commit()
 
-    return 'Hero added'
+#     return 'Hero added'
+
+#heromodel
+class Hero(db.Model):
+    __tablename__ = "heroes"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    hero_name = db.Column(db.String(100), nullable=False)
+    powers = db.Column(db.String(100), nullable=False)
 
 
 if __name__ == '__main__':
