@@ -3,7 +3,7 @@
 from flask import Flask, make_response, jsonify, request
 from flask_migrate import Migrate
 
-from models import db, Hero
+from models import db, Hero, Power, HeroPower
 
 import os
 
@@ -60,6 +60,20 @@ def get_hero_by_id(hero_id):
         return jsonify(hero_data)
     else:
         return make_response(jsonify({"error": "not found"}), 401)
+    
+    
+    
+@app.route("/powers", methods=["GET"])
+def get_powers():
+    powers = Power.query.all()
+    powers_data = [
+        {"id": power.id, "name": power.name, "description": power.description}
+        for power in powers
+    ]
+    return jsonify(powers_data)
+
+    
+
 
 
 
