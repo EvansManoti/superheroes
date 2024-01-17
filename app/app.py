@@ -61,7 +61,7 @@ def get_hero_by_id(hero_id):
     else:
         return make_response(jsonify({"error": "not found"}), 401)
     
-    
+
     
 @app.route("/powers", methods=["GET"])
 def get_powers():
@@ -71,6 +71,39 @@ def get_powers():
         for power in powers
     ]
     return jsonify(powers_data)
+
+
+
+@app.route("/powers/<int:power_id>", methods=["GET", "PATCH"])
+def get_or_update_power(power_id):
+    power = Power.query.get(power_id)
+
+    if not power:
+        return make_response(jsonify({"error": "Power not found"}), 404)
+
+    if request.method == "GET":
+        power_data = {
+            "id": power.id,
+            "name": power.name,
+            "description": power.description,
+        }
+        return jsonify(power_data)
+    elif request.method == "PATCH":
+        data = request.get_json()
+
+        if "description" in data:
+            power.description = data["description"]
+            db.session.commit()
+            updated_power_data = {
+                "id": power.id,
+                "name": power.name,
+                "description": power.description,
+            }
+            return jsonify(updated_power_data)
+        else:
+            return make_response(
+                jsonify({"errors": ["unavailable 'description' in request"]}), 401
+            )
 
     
 
