@@ -9,14 +9,14 @@ class Hero(db.Model):
     name = db.Column(db.String(100), nullable=False)
     hero_name = db.Column(db.String(100), nullable=False)
 
-# Power model 
+# Power model .
 class Power(db.Model):
     __tablename__ = "powers"
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     description = db.Column(db.String(100), nullable=False)
 
-# HeroPower model
+# HeroPower model.
 class HeroPower(db.Model):
     __tablename__ = "heroes_powers"
     id = db.Column(db.Integer, primary_key=True)
