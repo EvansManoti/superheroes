@@ -1,14 +1,11 @@
 import os
 
-abs_path=os.getcwd()
+abs_path = os.getcwd()
 
 print(abs_path)
 
-print(os.path.normpath(abs_path))
 
-
-#names of heroes
-hero_names = [
+all_names = [
     {"id": 1, "name": "Kamala Khan", "super_name": "Ms. Marvel"},
     {"id": 2, "name": "Doreen Green", "super_name": "Squirrel Girl"},
     {"id": 3, "name": "Gwen Stacy", "super_name": "Spider-Gwen"},
@@ -21,7 +18,7 @@ hero_names = [
     {"id": 10, "name": "Elektra Natchios", "super_name": "Elektra"},
 ]
 
-#powername and description
+
 powers_data = [
     {
         "id": 1,
@@ -45,16 +42,16 @@ powers_data = [
     },
 ]
 
-#power data of heroes
+
 heros_powers_data = [
-    {"hero_id": 1, "power_id": 1},  # hero one & power
-    {"hero_id": 2, "power_id": 2},  # hero two & power
-    {"hero_id": 3, "power_id": 3},  # hero three & power
-    {"hero_id": 4, "power_id": 4},  # hero four & power
-    {"hero_id": 5, "power_id": 1},  # hero five & power
-    {"hero_id": 6, "power_id": 2},  # hero six & power
-    {"hero_id": 7, "power_id": 3},  # hero seven & power
-    {"hero_id": 8, "power_id": 4},  # hero eigth & power
-    {"hero_id": 9, "power_id": 1},  # hero nine & power
-    {"hero_id": 10, "power_id": 2},  # hero ten & power
+    {"hero_id": 1, "power_id": 1},  # Kamala Khan with super strength
+    {"hero_id": 2, "power_id": 2},  # Doreen Green with flight
+    {"hero_id": 3, "power_id": 3},  # Gwen Stacy with super human senses
+    {"hero_id": 4, "power_id": 4},  # Janet Van Dyne with elasticity
+    {"hero_id": 5, "power_id": 1},  # Wanda Maximoff with super strength
+    {"hero_id": 6, "power_id": 2},  # Carol Danvers with flight
+    {"hero_id": 7, "power_id": 3},  # Jean Grey with super human senses
+    {"hero_id": 8, "power_id": 4},  # Ororo Munroe with elasticity
+    {"hero_id": 9, "power_id": 1},  # Kitty Pryde with super strength
+    {"hero_id": 10, "power_id": 2},  # Elektra Natchios with flight
 ]

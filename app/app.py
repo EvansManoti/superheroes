@@ -1,37 +1,25 @@
-#!/usr/bin/env python3
-
 from flask import Flask, make_response, jsonify, request
 from flask_migrate import Migrate
-
 from models import db, Hero, Power, HeroPower
-
 import os
 
-abs_path=os.getcwd()
-
-db_path=f'sqlite:///{abs_path}/db/app.db'
+abs_path = os.getcwd()
+db_path = f"{abs_path}/db/app.db"
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = db_path
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:///{db_path}"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 migrate = Migrate(app, db)
 
 db.init_app(app)
 
-@app.route('/')
+
+@app.route("/")
 def home():
-    return ''
+    return "This is the home page. Please use the /api/heroes endpoint to get and post heroes."
 
-# @app.route('/add-dumy')
-# def add_dummy():
-#     hero=Hero(name='Leo',super_name='belligoal')
-#     db.session.add(hero)
-#     db.session.commit()
 
-#     return 'Hero added'
-
-#heroes1routing
 @app.route("/heroes", methods=["GET"])
 def get_heroes():
     heroes = Hero.query.all()
@@ -41,7 +29,7 @@ def get_heroes():
     ]
     return jsonify(heroes_data)
 
-#heroes2routing
+
 @app.route("/heroes/<int:hero_id>", methods=["GET"])
 def get_hero_by_id(hero_id):
     hero = Hero.query.get(hero_id)
@@ -60,10 +48,9 @@ def get_hero_by_id(hero_id):
         }
         return jsonify(hero_data)
     else:
-        return make_response(jsonify({"error": "not found"}), 401)
-    
+        return make_response(jsonify({"error": "Hero not found"}), 404)
 
-#powersrouting
+
 @app.route("/powers", methods=["GET"])
 def get_powers():
     powers = Power.query.all()
@@ -74,7 +61,6 @@ def get_powers():
     return jsonify(powers_data)
 
 
-#powersrouting2
 @app.route("/powers/<int:power_id>", methods=["GET", "PATCH"])
 def get_or_update_power(power_id):
     power = Power.query.get(power_id)
@@ -103,10 +89,10 @@ def get_or_update_power(power_id):
             return jsonify(updated_power_data)
         else:
             return make_response(
-                jsonify({"errors": ["unavailable 'description' in request"]}), 401
+                jsonify({"errors": ["Missing 'description' in request"]}), 400
             )
 
-#heroespowersrouting
+
 @app.route("/hero_powers", methods=["POST"])
 def create_hero_power():
     data = request.get_json()
@@ -126,11 +112,5 @@ def create_hero_power():
     return jsonify(get_hero_by_id(data["hero_id"]))
 
 
-
-
-
-if __name__ == '__main__':
-    app.run(port=3000,debug = True )
-
-
-
+if __name__ == "__main__":
+    app.run(port=3000, debug=True)

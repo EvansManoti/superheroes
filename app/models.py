@@ -2,23 +2,35 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-# Hero model
+
 class Hero(db.Model):
     __tablename__ = "heroes"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    hero_name = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(80), nullable=False)
+    super_name = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now()
+    )
 
-# Power model .
+
 class Power(db.Model):
     __tablename__ = "powers"
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.String(100), nullable=False)
+    name = db.Column(db.String(80), nullable=False)
+    description = db.Column(db.String(80), nullable=False)
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now()
+    )
 
-# HeroPower model.
+
 class HeroPower(db.Model):
-    __tablename__ = "heroes_powers"
+    __tablename__ = "heros_powers"
     id = db.Column(db.Integer, primary_key=True)
     hero_id = db.Column(db.Integer, db.ForeignKey("heroes.id"))
     power_id = db.Column(db.Integer, db.ForeignKey("powers.id"))
+    created_at = db.Column(db.DateTime, server_default=db.func.now())
+    updated_at = db.Column(
+        db.DateTime, server_default=db.func.now(), server_onupdate=db.func.now()
+    )
